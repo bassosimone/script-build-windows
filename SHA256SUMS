@@ -1,3 +1,6 @@
 0a43902daab16bf4f43ef793e4abad8fa1f9b334786162f07aa461028327eb4d  windows-geoip-api-c-1.6.12-2-g204cc59-1.tar.gz
 35efb680f003d06f8cd632044e2e69533dcda89dea61146f42ec16a7656adc3c  windows-libevent-2.1.8-1.tar.gz
 6e330e3cdee76a926ed4c931f2de005bb3fb6c23a1888efae01e02b97b321383  windows-libressl-2.6.4-1.tar.gz
+7a7e43e4dfe757d368001fc671ddd4475cd9956de770b86749801838758cc305 *windows-geoip-api-c-1.6.12-2-g204cc59-2.tar.gz
+685a5f66c1cb0a5765c2561654057b38bbe79b3bfce684af31eb4116af61bfec *windows-libevent-2.1.8-2.tar.gz
+a8069e866aec28fadeff8658ff18f337c9d51ad3a96a0d4fa553eb9a41a2aabe *windows-libressl-2.6.4-2.tar.gz
