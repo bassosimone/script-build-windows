@@ -8,13 +8,12 @@ PKG_NAME=libressl
 PKG_VERSION=2.6.4
 PKG_CHECKSUM=638a20c2f9e99ee283a841cd787ab4d846d1880e180c4e96904fc327d419d11f
 PKG_URL=https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/$PKG_NAME-$PKG_VERSION.tar.gz
-PKG_BUILD=1
+PKG_BUILD=2
 [ "$PKG_OS" != "" -a "$PKG_ARCH" != "" ]
 PKG_FULLNAME=$PKG_NAME/$PKG_VERSION-$PKG_BUILD
 PKG_BUILDDIR=$PKG_TOPDIR/MK_BUILD/$PKG_OS/$PKG_FULLNAME/$PKG_ARCH
-PKG_INSTALLDIR=../../../../../../MK_DIST/$PKG_OS/$PKG_FULLNAME/$PKG_ARCH
-rm -rf $PKG_BUILDDIR $PKG_INSTALLDIR
-install -d $PKG_BUILDDIR $PKG_INSTALLDIR
+rm -rf $PKG_BUILDDIR
+install -d $PKG_BUILDDIR
 (
   set -ex
   cd $PKG_BUILDDIR
@@ -23,6 +22,9 @@ install -d $PKG_BUILDDIR $PKG_INSTALLDIR
   [ $PKG_CHECKSUM = "$REAL_CHECKSUM" ]
   tar -xzf $PKG_NAME-$PKG_VERSION.tar.gz
   cd $PKG_NAME-$PKG_VERSION
+  PKG_INSTALLDIR=../../../../../../MK_DIST/$PKG_OS/$PKG_FULLNAME/$PKG_ARCH
+  rm -rf $PKG_INSTALLDIR
+  install -d $PKG_INSTALLDIR
   patch -Np1 -i $PKG_TOPDIR/libressl-000.patch
   cmake.exe -G "NMake Makefiles" -DBUILD_SHARED=OFF                            \
           -DCMAKE_INSTALL_PREFIX="$PKG_INSTALLDIR"                             \
