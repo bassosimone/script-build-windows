@@ -1,7 +1,10 @@
 # Package MK and deps for Windows
 
 This repository contains the scripts to compile and package MK and its
-dependencies on Windows systems (but _not_ for Mingw-w64).
+dependencies on Windows systems (but _not_ for Mingw-w64; you should
+use [measurement-kit/script-build-unix](
+https://github.com/measurement-kit/script-build-unix
+) to do that).
 
 ## Build and package
 
