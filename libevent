@@ -1,0 +1,43 @@
+#!/bin/sh
+set -ex
+PKG_OS=windows
+PKG_ARCH=$HOSTTYPE
+PKG_TOPDIR=$(cd $(dirname $0) && pwd -P)
+PKG_NAME=libevent
+PKG_VERSION=2.1.8
+PKG_CHECKSUM=316ddb401745ac5d222d7c529ef1eada12f58f6376a66c1118eee803cb70f83d
+PKG_URL=https://github.com/libevent/libevent/archive/release-$PKG_VERSION-stable.tar.gz
+PKG_BUILD=1
+PKG_LIBRESSL_VERSION=2.6.4-1
+[ "$PKG_OS" != "" -a "$PKG_ARCH" != "" ]
+PKG_FULLNAME=$PKG_NAME/$PKG_VERSION-$PKG_BUILD
+PKG_BUILDDIR=$PKG_TOPDIR/MK_BUILD/$PKG_OS/$PKG_FULLNAME/$PKG_ARCH
+PKG_INSTALLDIR=../../../../../../MK_DIST/$PKG_OS/$PKG_FULLNAME/$PKG_ARCH
+LIBRESSL_PREFIX=../../../../../../MK_DIST/$PKG_OS/libressl/$PKG_LIBRESSL_VERSION/$PKG_ARCH
+rm -rf $PKG_BUILDDIR $PKG_INSTALLDIR
+install -d $PKG_BUILDDIR $PKG_INSTALLDIR
+(
+  set -ex
+  cd $PKG_BUILDDIR
+  curl -LsO $PKG_URL
+  REAL_CHECKSUM=$(sha256sum release-$PKG_VERSION-stable.tar.gz | awk '{print $1}')
+  [ $PKG_CHECKSUM = "$REAL_CHECKSUM" ]
+  tar -xzf release-$PKG_VERSION-stable.tar.gz
+  cd $PKG_NAME-release-$PKG_VERSION-stable
+  patch -Np1 -i $PKG_TOPDIR/libevent-000.patch
+  cmake.exe -G "NMake Makefiles" -DBUILD_SHARED=OFF                            \
+          -DCMAKE_INSTALL_PREFIX="$PKG_INSTALLDIR"                             \
+          -DEVENT__DISABLE_BENCHMARK=ON                                        \
+          -DEVENT__DISABLE_TESTS=ON                                            \
+          -DEVENT__DISABLE_REGRESS=ON                                          \
+          -DEVENT__DISABLE_SAMPLES=ON                                          \
+          -DEVENT__BUILD_SHARED_LIBRARIES=OFF                                  \
+          -DCMAKE_POSITION_INDEPENDENT_CODE=ON                                 \
+          -DOPENSSL_INCLUDE_DIR="${LIBRESSL_PREFIX}\\include"                  \
+          -DLIB_EAY_DEBUG="${LIBRESSL_PREFIX}\\lib\\crypto.lib"                \
+          -DSSL_EAY_DEBUG="${LIBRESSL_PREFIX}\\lib\\ssl.lib"                   \
+          -DCMAKE_BUILD_TYPE=Release
+  nmake.exe /f Makefile install
+  rm -rf $PKG_INSTALLDIR/cmake
+  rm -rf $PKG_INSTALLDIR/lib/event_*.lib
+)
