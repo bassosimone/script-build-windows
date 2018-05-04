@@ -19,7 +19,7 @@ install -d $PKG_BUILDDIR
   set -ex
   cd $PKG_BUILDDIR
   curl -LsO $PKG_URL
-  REAL_CHECKSUM=$(sha256sum $PKG_LATEST_COMMIT.tar.gz | awk '{print $1}')
+  REAL_CHECKSUM=$(cmake.exe -E sha256sum $PKG_LATEST_COMMIT.tar.gz | awk '{print $1}')
   [ $PKG_CHECKSUM = "$REAL_CHECKSUM" ]
   tar -xzf $PKG_LATEST_COMMIT.tar.gz
   cd $PKG_NAME-$PKG_LATEST_COMMIT_FULL
