@@ -12,11 +12,8 @@ By following this procedure, you will find tarball packages in the root
 directory and an updated SHA256SUM file that you should commit.
 
 You'll need to have installed Visual Studio 2017 and the Linux Subsystem
-for Windows with bash and these additional commands:
-
-- cmake
-- curl
-- ninja
+for Windows with bash with `curl` installed. Additionally, we also require
+CMake to be installed as a Windows executable.
 
 Open a development command prompt for either `x86` or `x64` (depending
 on what you want to compile for) and run:
