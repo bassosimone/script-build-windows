@@ -7,7 +7,7 @@ PKG_LATEST_COMMIT_FULL=204cc59067839c06cc0f7d27e23c06b1c2555ead
 PKG_VERSION=1.6.12-2-g204cc59
 PKG_CHECKSUM=87483be5cb28d5c11c3b61a3a255a38583eefe2a7d82faa8f0ffd8a0ca6767c8
 PKG_URL=https://github.com/maxmind/geoip-api-c/archive/$PKG_LATEST_COMMIT.tar.gz
-PKG_BUILD=4
+PKG_BUILD=5
 [ "$PKG_OS" != "" -a "$PKG_ARCH" != "" ]
 PKG_FULLNAME=$PKG_NAME/$PKG_VERSION-$PKG_BUILD
 PKG_BUILDDIR=$PKG_TOPDIR/MK_BUILD/$PKG_OS/$PKG_FULLNAME/$PKG_ARCH
@@ -16,10 +16,10 @@ install -d $PKG_BUILDDIR
 (
   set -ex
   cd $PKG_BUILDDIR
-  curl -LsO $PKG_URL
+  curl -LO --progress-bar $PKG_URL
   REAL_CHECKSUM=$(cmake.exe -E sha256sum $PKG_LATEST_COMMIT.tar.gz | awk '{print $1}')
   [ $PKG_CHECKSUM = "$REAL_CHECKSUM" ]
-  tar -xzf $PKG_LATEST_COMMIT.tar.gz
+  cmake.exe -E tar -xzf $PKG_LATEST_COMMIT.tar.gz
   cd $PKG_NAME-$PKG_LATEST_COMMIT_FULL
   PKG_INSTALLDIR=../../../../../../MK_DIST/$PKG_OS/$PKG_FULLNAME/$PKG_ARCH
   rm -rf $PKG_INSTALLDIR
