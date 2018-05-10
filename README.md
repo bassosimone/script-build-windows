@@ -19,10 +19,10 @@ Open a development command prompt for either `x86` or `x64` (depending
 on what you want to compile for) and run:
 
 ```
-bash -lc ./geoip-api-c
-bash -lc ./libressl
-bash -lc ./libevent
-bash -lc ./measurement-kit
+build.bat ./geoip-api-c
+build.bat ./libressl
+build.bat ./libevent
+build.bat ./measurement-kit
 ```
 
 ## Publishing packages
