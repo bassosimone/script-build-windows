@@ -12,7 +12,7 @@ By following this procedure, you will find tarball packages in the root
 directory and an updated SHA256SUM file that you should commit.
 
 You'll need to have installed Visual Studio 2017 and the Linux Subsystem
-for Windows with bash with `curl` installed. Additionally, we also require
+for Windows with `bash` with `curl` installed. Additionally, we also require
 CMake to be installed as a Windows executable.
 
 Open a development command prompt for either `x86` or `x64` (depending
@@ -60,7 +60,7 @@ This will download the related tarball, verify its SHA256 sum and unpack
 the tarball inside `./MK_DIST`. You can use `find` inside of `MK_DIST` to
 understand exactly the structure of the downloaded package.
 
-If you integrate this repository as a subdirectory, and you run install
+If you integrate this repository as a subrepository, and you run install
 from the parent directory, `MK_DIST` will be inside the parent directory.
 
 ```
