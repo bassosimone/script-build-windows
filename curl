@@ -1,0 +1,40 @@
+#!/bin/sh
+set -ex
+PKG_TOPDIR=$(cd $(dirname $0) && pwd -P)
+cd $PKG_TOPDIR
+PKG_NAME=curl
+PKG_VERSION=7.59.0
+PKG_TAG=curl-`echo $PKG_VERSION | tr '.' '_'`
+PKG_CHECKSUM=099d9c32dc7b8958ca592597c9fabccdf4c08cfb7c114ff1afbbc4c6f13c9e9e
+PKG_URL=https://github.com/curl/curl/releases/download/$PKG_TAG/curl-$PKG_VERSION.tar.gz
+PKG_BUILD=1
+[ "$PKG_OS" != "" -a "$PKG_ARCH" != "" ]
+PKG_FULLNAME=$PKG_NAME/$PKG_VERSION-$PKG_BUILD
+PKG_BUILDDIR=$PKG_TOPDIR/MK_BUILD/$PKG_OS/$PKG_FULLNAME/$PKG_ARCH
+rm -rf $PKG_BUILDDIR
+install -d $PKG_BUILDDIR
+(
+  set -ex
+  cd $PKG_BUILDDIR
+  curl -LO --progress-bar $PKG_URL
+  REAL_CHECKSUM=$(cmake.exe -E sha256sum $PKG_NAME-$PKG_VERSION.tar.gz | awk '{print $1}')
+  [ $PKG_CHECKSUM = "$REAL_CHECKSUM" ]
+  cmake.exe -E tar -xzf $PKG_NAME-$PKG_VERSION.tar.gz
+  cd $PKG_NAME-$PKG_VERSION
+  PKG_INSTALLDIR=../../../../../../MK_DIST/$PKG_OS/$PKG_FULLNAME/$PKG_ARCH
+  rm -rf $PKG_INSTALLDIR
+  install -d $PKG_INSTALLDIR
+  cmake.exe -G "NMake Makefiles" -DCURL_STATICLIB=ON                           \
+          -DCMAKE_INSTALL_PREFIX="$PKG_INSTALLDIR"                             \
+          -DCMAKE_BUILD_TYPE=Release -DHTTP_ONLY=ON -DCMAKE_USE_WINSSL=ON
+  nmake.exe /f Makefile install
+  rm -rf $PKG_INSTALLDIR/CMake
+  rm -rf $PKG_INSTALLDIR/bin
+  rm -rf $PKG_INSTALLDIR/etc
+  rm -rf $PKG_INSTALLDIR/include/CMakeFiles
+  rm -rf $PKG_INSTALLDIR/include/*.cmake
+  rm -rf $PKG_INSTALLDIR/lib/pkgconfig
+  rm -rf $PKG_INSTALLDIR/lib/*.dll
+  rm -rf $PKG_INSTALLDIR/lib/*-*.lib
+  rm -rf $PKG_INSTALLDIR/share
+)
