@@ -3,9 +3,9 @@ set -ex
 PKG_TOPDIR=$(cd $(dirname $0) && pwd -P)
 cd $PKG_TOPDIR
 PKG_NAME=curl
-PKG_VERSION=7.59.0
+PKG_VERSION=7.61.0
 PKG_TAG=curl-`echo $PKG_VERSION | tr '.' '_'`
-PKG_CHECKSUM=099d9c32dc7b8958ca592597c9fabccdf4c08cfb7c114ff1afbbc4c6f13c9e9e
+PKG_CHECKSUM=64141f0db4945268a21b490d58806b97c615d3d0c75bf8c335bbe0efd13b45b5
 PKG_URL=https://github.com/curl/curl/releases/download/$PKG_TAG/curl-$PKG_VERSION.tar.gz
 PKG_BUILD=1
 [ "$PKG_OS" != "" -a "$PKG_ARCH" != "" ]
@@ -26,7 +26,8 @@ install -d $PKG_BUILDDIR
   install -d $PKG_INSTALLDIR
   cmake.exe -G "NMake Makefiles" -DCURL_STATICLIB=ON                           \
           -DCMAKE_INSTALL_PREFIX="$PKG_INSTALLDIR"                             \
-          -DCMAKE_BUILD_TYPE=Release -DHTTP_ONLY=ON -DCMAKE_USE_WINSSL=ON
+          -DCMAKE_BUILD_TYPE=Release -DHTTP_ONLY=ON -DCMAKE_USE_WINSSL=ON      \
+          -DBUILD_TESTING=OFF
   nmake.exe /f Makefile install
   rm -rf $PKG_INSTALLDIR/CMake
   rm -rf $PKG_INSTALLDIR/bin
