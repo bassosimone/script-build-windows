@@ -6,6 +6,12 @@ use [measurement-kit/script-build-unix](
 https://github.com/measurement-kit/script-build-unix
 ) to do that).
 
+⚠️: our primary Windows use case is OONI probe, for which we use a
+Mingw-w64 toolchain. Therefore, builds for Windows proper may in general
+be lagging behind, as they do not currently seem to be something
+that anybody is using. At present, the main reason why this repository
+exists is to enable us to run a MSVC based AppVeyor build of MK.
+
 ## Build and package
 
 By following this procedure, you will find tarball packages in the root
