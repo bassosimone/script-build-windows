@@ -3,9 +3,9 @@ set -ex
 PKG_TOPDIR=$(cd $(dirname $0) && pwd -P)
 cd $PKG_TOPDIR
 PKG_NAME=curl
-PKG_VERSION=7.61.0
+PKG_VERSION=7.61.1
 PKG_TAG=curl-`echo $PKG_VERSION | tr '.' '_'`
-PKG_CHECKSUM=64141f0db4945268a21b490d58806b97c615d3d0c75bf8c335bbe0efd13b45b5
+PKG_CHECKSUM=eaa812e9a871ea10dbe8e1d3f8f12a64a8e3e62aeab18cb23742e2f1727458ae
 PKG_URL=https://github.com/curl/curl/releases/download/$PKG_TAG/curl-$PKG_VERSION.tar.gz
 PKG_BUILD=1
 [ "$PKG_OS" != "" -a "$PKG_ARCH" != "" ]
