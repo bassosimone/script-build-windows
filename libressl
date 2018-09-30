@@ -23,7 +23,6 @@ install -d $PKG_BUILDDIR
   PKG_INSTALLDIR=../../../../../../MK_DIST/$PKG_OS/$PKG_FULLNAME/$PKG_ARCH
   rm -rf $PKG_INSTALLDIR
   install -d $PKG_INSTALLDIR
-  patch -Np1 -i $PKG_TOPDIR/libressl-000.patch
   cmake.exe -G "NMake Makefiles" -DBUILD_SHARED=OFF                            \
           -DCMAKE_INSTALL_PREFIX="$PKG_INSTALLDIR"                             \
           -DCMAKE_BUILD_TYPE=Release
