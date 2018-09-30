@@ -24,7 +24,7 @@ install -d $PKG_BUILDDIR
   PKG_INSTALLDIR=../../../../../../MK_DIST/$PKG_OS/$PKG_FULLNAME/$PKG_ARCH
   rm -rf $PKG_INSTALLDIR
   install -d $PKG_INSTALLDIR
-  cmake.exe -G "NMake Makefiles" -DCURL_STATICLIB=ON                           \
+  cmake.exe -G "NMake Makefiles" -DBUILD_SHARED_LIBS=OFF                       \
           -DCMAKE_INSTALL_PREFIX="$PKG_INSTALLDIR"                             \
           -DCMAKE_BUILD_TYPE=Release -DHTTP_ONLY=ON -DCMAKE_USE_WINSSL=ON      \
           -DBUILD_TESTING=OFF
