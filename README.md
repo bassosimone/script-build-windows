@@ -10,7 +10,8 @@ https://github.com/measurement-kit/script-build-unix
 Mingw-w64 toolchain. Therefore, builds for Windows proper may in general
 be lagging behind, as they do not currently seem to be something
 that anybody is using. At present, the main reason why this repository
-exists is to enable us to run a MSVC based AppVeyor build of MK.
+exists is to enable us to run a MSVC based AppVeyor build of MK. See
+also issue [#1](https://github.com/measurement-kit/script-build-windows/issues/1#issuecomment-486688764).
 
 ## Build and package
 
